@@ -6,15 +6,13 @@
 @import "./layout/sidebar";
 @import "./layout/container";
 
-
-
 body {
   font-family: sans-serif;
 }
 table {
   thead {
     tr {
-        background-color: rgb(168, 165, 165);
+        background-color: rgb(109, 150, 63);
         color: white;
         th {
           :first-child {
@@ -24,7 +22,6 @@ table {
             text-align: right;
           }
         }
-
     }
   }
   border-collapse: collapse;
@@ -35,7 +32,6 @@ td {
   border: 1px solid black;
 }
 
-
 .DeliveryStatus {
   text-align: center;
   display: flex;
@@ -43,3 +39,4 @@ td {
   justify-content: center;
 
 }
+

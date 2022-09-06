@@ -28,8 +28,9 @@ const DeliveryManagement = () => {
   const [rowData2, setRowData2] = useState([]);
   const [updCnt, setUpdCnt] = useState();
 
-  //const baseURL = "http://localhost:8083/deliveries";
-  const baseURL = "http://localhost:8080/deliveries";
+  const baseURL = '/deliveries';
+  // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveries';
+  //const baseURL = "http://localhost:8080/deliveries";
 
   function getId(str) {
     const idx = str.lastIndexOf('/');

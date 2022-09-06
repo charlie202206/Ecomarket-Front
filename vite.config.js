@@ -4,5 +4,15 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()]
+  plugins: [react(), svgr()],
+  define: {
+    "global": {},
+  },
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    open: false,
+    host: '0.0.0.0',
+  },
 })

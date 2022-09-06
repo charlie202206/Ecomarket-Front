@@ -1,8 +1,7 @@
 @import "variables";
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-
-
 @import "./layout/sidebar";
 @import "./layout/container";
 
@@ -33,13 +32,4 @@ th,
 td {
   padding: 0.5rem;
   border: 1px solid black;
-}
-
-
-.DeliveryStatus {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
 }

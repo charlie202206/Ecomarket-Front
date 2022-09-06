@@ -1,0 +1,42 @@
+@import "variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+
+@import "./layout/sidebar";
+@import "./layout/container";
+
+// body {
+//   font-family: sans-serif;
+// }
+// table {
+//   thead {
+//     tr {
+//         background-color: rgb(109, 150, 63);
+//         color: white;
+//         th {
+//           :first-child {
+//             text-align: left;
+//           }
+//           :last-child {
+//             text-align: right;
+//           }
+//         }
+//     }
+//   }
+//   border-collapse: collapse;
+// }
+// th,
+// td {
+//   padding: 0.5rem;
+//   border: 1px solid black;
+// }
+
+// .DeliveryStatus {
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+// }
+

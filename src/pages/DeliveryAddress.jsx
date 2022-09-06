@@ -13,8 +13,9 @@ const DeliveryAddress = () => {
   const [delCnt, setDelCnt] = useState(1);
   const navigate = useNavigate();
 
-  //const baseURL = "http://localhost:8083/deliveryAddresses";
-  const baseURL = "http://localhost:8080/deliveryAddresses";
+  const baseURL = '/deliveryAddresses'
+  // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveryAddresses'
+  //const baseURL = "http://localhost:8080/deliveryAddresses";
 
   /**
    * 배송주소ID 추출
@@ -175,6 +176,7 @@ const DeliveryAddress = () => {
               + 새 배송지 등록
           </Button>
         </div>
+    
       </div>
     </>
   );

@@ -13,8 +13,9 @@ import '../App.css'
 const DeliveryInfo = () => {
 
   const [data, setData] = useState([]);
-  //const baseURL = "http://localhost:8083/deliveries";
-  const baseURL = "http://localhost:8080/deliveries";
+  const baseURL = '/deliveries';
+  // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveries';
+  //const baseURL = "http://localhost:8080/deliveries";
 
   /**
    * 최초 한번 조회

@@ -2,7 +2,7 @@
 const Starter = () => {
   return (
     <div>
-      배송MSA
+      Eco-Market
     </div>
   );
 };

@@ -13,9 +13,11 @@ import {
   Dropdown,
   Button,
 } from "reactstrap";
+import { BiChevronRight, BiMenu, BiCartAlt } from "react-icons/bi";
+import { FcInTransit } from "react-icons/fc";
 
 // import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
-// import user1 from "../assets/images/users/user1.jpg";
+import user1 from "../img/users/user1.jpg";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -39,7 +41,8 @@ const Header = () => {
           className="d-lg-none"
           onClick={() => showMobilemenu()}
         >
-          <i className="bi bi-list"></i>
+          {/* <i className="bi bi-list"></i> */}
+          <BiMenu/>
         </Button>
       </div>
       <div className="hstack gap-2">
@@ -60,13 +63,13 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <Link to="/starter" className="nav-link">
+            <Link to="/ecoproductlist" className="nav-link">
               Home
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/#" className="nav-link">
-              Link
+            <Link to="/disposal" className="nav-link">
+              배출
             </Link>
           </NavItem>
           <UncontrolledDropdown inNavbar nav>
@@ -81,22 +84,28 @@ const Header = () => {
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
+
+        <Link to={'/deliveryInfo'} ><FcInTransit/>    </Link>
+        
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="dark">
-            {/* <img
+            <img
               src={user1}
               alt="profile"
               className="rounded-circle"
               width="30"
-            ></img> */}
+            ></img>
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
-            <DropdownItem>My Page</DropdownItem>
-            <DropdownItem>My Basket</DropdownItem>
+            <DropdownItem><Link to={'/myPage/'+ 1} style={{ textDecoration: 'none', color: 'black'}}>My Page</Link></DropdownItem>
+            {/* <Link to={'/myPage/'+ 1}><button>마이페이지</button></Link> */}
+            <DropdownItem> <Link to={'/reviewList/'+ 2} style={{ textDecoration: 'none', color: 'black'}}>리뷰리스트 </Link> </DropdownItem>
+            <DropdownItem><Link to={'/basketlist'} style={{ textDecoration: 'none', color: 'black'}}>Basketlist</Link></DropdownItem>
             <DropdownItem divider />
             {/* <DropdownItem></DropdownItem> */}
             {/* <DropdownItem>Inbox</DropdownItem> */}
+            
             <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>

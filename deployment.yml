@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecomarket-frontend
+  namespace: ecomarket
+  labels:
+    app: ecomarket-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecomarket-frontend
+  template:
+    metadata:
+      labels:
+        app: ecomarket-frontend
+    spec:
+      containers:
+        - name: ecomarket-frontend
+          image: 104844728320.dkr.ecr.ap-northeast-2.amazonaws.com/frontendtest:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000       

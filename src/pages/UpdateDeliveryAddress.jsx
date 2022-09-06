@@ -17,8 +17,9 @@ const UpdateDeliveryAddress = () => {
   const addrId = location.state.addrId;
   const memberId = location.state.memberId;
 
-  //const baseURL = "http://localhost:8083/deliveryAddresses";
-  const baseURL = "http://localhost:8080/deliveryAddresses";
+  const baseURL = '/deliveryAddresses';
+  // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveryAddresses';
+  //const baseURL = "http://localhost:8080/deliveryAddresses";
 
   /**
    * 배송주소ID 추출
