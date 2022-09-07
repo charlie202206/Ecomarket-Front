@@ -10,6 +10,9 @@ import {
   FormFeedback,
 } from "reactstrap";
 
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const AddPoinStandard = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -24,15 +27,24 @@ const AddPoinStandard = (props) => {
     ecoPoint : ""
   })
 
+    //글로벌변수(useContext) ==사용 start
+    const context = useContext(ContextAPI);
+    console.log(context);
+    console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+    if(context.memberId === 0){
+      //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+      //return;
+    }
+    // ======= 사용 end
 
   const onEditChange = (e) => {
     setInputs({
-      ...inputs, 
+      ...inputs,
       [e.target.name]: e.target.value
     })
   }
 
-  
+
   //const baseURL = "http://localhost:8080/";
 
   function addPointStandard(data){
@@ -53,7 +65,7 @@ const AddPoinStandard = (props) => {
       .then((res) => {
         console.log(res+ " RES");
         if (res === "ok") {
-          // setPointStandard(pointStandard.filter((item) => item.standardId !== id)); 
+          // setPointStandard(pointStandard.filter((item) => item.standardId !== id));
         }
       })
       .catch(error => console.log(error + " \n fetch error!"));
@@ -80,7 +92,7 @@ const AddPoinStandard = (props) => {
              <Input  onChange={onEditChange} name="classification">  </Input>
 
             <Label for="exampleEmail"> 무게/수량 (kg/개)   </Label>
-            <Input  type="number"  onChange={onEditChange} name="countweightstandard"/> 
+            <Input  type="number"  onChange={onEditChange} name="countweightstandard"/>
 
             <Label for="exampleEmail">  에코포인트  </Label>
             <Input  type="number"  onChange={onEditChange} name="ecoPoint">  </Input>
@@ -93,8 +105,8 @@ const AddPoinStandard = (props) => {
           {/* <Link to="/result">
             <button className="close" onClick={close}>
               저장
-            </button> </Link> */} 
-             <button type='submit'  onClick={() => addPointStandard(inputs)} >  저장 </button> 
+            </button> </Link> */}
+             <button type='submit'  onClick={() => addPointStandard(inputs)} >  저장 </button>
           </footer>
         </section>
       ) : null}

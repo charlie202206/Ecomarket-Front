@@ -14,9 +14,20 @@ import {
   Col,
 } from "reactstrap";
 import ReviewList from "./ReviewList";
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const EcoproductSearchDtl = () => {
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+  // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+  // return;
+  }
+  // ======= 사용 end
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState('');
   const [items, setItems] = useState([]);
@@ -29,7 +40,7 @@ const EcoproductSearchDtl = () => {
                                         ,productDescription: ''
                                         ,productImageId: ''
                                        });
-                                       
+
 
   useEffect(() => {
      axios.get('/ecoProducts/' + id).then((res) => {
@@ -52,12 +63,14 @@ const EcoproductSearchDtl = () => {
 
 
   function handleBasket() {
+
+
     const params2 = {
       ecoProductId: id,
       ecoProductName: params.name,
       ecoProductQty: document.getElementById('quantity').value,
       ecoProductUnitPrice: params.price,
-      memberId: 1 
+      memberId: 1
     };
     axios
       .post('/ecoOrders/baskets', params2)
@@ -84,7 +97,7 @@ const EcoproductSearchDtl = () => {
       // 호출 화면쪽으로 주소 정보 넘겨야함
       navigate('/basketlist/ecoorder', {state: {items}});
     }
-  
+
   return (
     <>
       <Row>
@@ -107,12 +120,11 @@ const EcoproductSearchDtl = () => {
                 {params.productDescription}
                 <br></br>
                 <br></br>
-                수량<input type="text" placeholder="" id="quantity" defaultValue={0} onChange={e => setQuantity(e.target.value)}/>
+                수량<input type="text" placeholder="" id="quantity" defaultValue={1} onChange={e => setQuantity(e.target.value)}/>
                 </CardText>
                 <div className="button-group">
-                <Link to={'/basketlist/ecoorder/' + id+'/'+params.price+'/'+quantity+'/'+1+'/' +params.name }><Button className="btn" >바로구매</Button></Link>
                 <Button onClick={handleBasket} >장바구니</Button>
-                <button type='submit' onClick={(e) => handleOrder(id, params.name,document.getElementById('quantity').value, params.price, 1, e)}>바로구매2</button>
+                <Button type='submit' onClick={(e) => handleOrder(id, params.name,document.getElementById('quantity').value, params.price, 1, e)}>바로구매</Button>
                 </div>
               </CardBody>
             </Card>

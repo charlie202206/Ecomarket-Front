@@ -10,6 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../App.css';
 import "../styles.css";
 import '../scss/style.scss';
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const options = [
   { value: 'READY',     label: '배송준비' },
@@ -19,7 +22,15 @@ const options = [
 ]
 
 const DeliveryManagement = () => {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //return;
+  }
+  // ======= 사용 end
   const [data, setData] = useState([]);
   const [staDate, setStaDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -59,6 +70,10 @@ const DeliveryManagement = () => {
       deliveryStatus: document.getElementById('deliveryStatus').value,
       trackingNumber: rowData1.trackingNumber,
       memberId: rowData1.memberId,
+      companyName: "A택배",
+      courierName: "김XX",
+      orderId: rowData1.orderId,
+      ecoProductName: rowData1.ecoProductName
     };
 
     console.log('=============== 수정(id : '+getId(rowData1._links.self.href)+') ===============');

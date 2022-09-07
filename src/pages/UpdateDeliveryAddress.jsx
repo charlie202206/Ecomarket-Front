@@ -8,8 +8,20 @@ import React from 'react';
 import '../App.css';
 import "../styles.css";
 import '../scss/style.scss';
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const UpdateDeliveryAddress = () => {
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    // return;
+  }
+  // ======= 사용 end
   const [data, setData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [params, setParams] = useState({ deliveryPlace: '', recipientName: '',  zipcode: '',  basAddr: '',  dtlAddr: '', extraAddr: '' });

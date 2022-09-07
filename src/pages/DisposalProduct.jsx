@@ -8,10 +8,22 @@ import {
   FormFeedback,
   Table,
 } from "reactstrap";
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const DisposalProduct = (props) => {
-  // 
+
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+   // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+   // return;
+  }
+  // ======= 사용 end
+  //
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header , selectedData, handleCancel} = props;
   console.log(selectedData + " ~!????");
@@ -29,25 +41,25 @@ const [inputs, setInputs] = useState({
   userId : ""
 })
 
- 
+
 
   const onCancle = () => {
     handleCancel();
   }
-  
+
   const onEditChange = (e) => {
     setInputs({
-      ...inputs, 
+      ...inputs,
       [e.target.name]: e.target.value
     })
   }
- 
+
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
     // handleEditSubmit(selectedData);
   }
-  
+
   const baseURL = "http://localhost:8081/";
 
   function disposalItem(data, index){
@@ -66,7 +78,7 @@ const [inputs, setInputs] = useState({
     //       // setUpdCnt(updCnt+1);
     //       console.log(res.data);
     //     });
-    
+
     fetch('/disposal/disposalItem', {
       method: "POST",
       mode: 'cors', // no-cors, cors, *same-origin
@@ -130,10 +142,10 @@ const [inputs, setInputs] = useState({
               ))}
             </tbody>
           </Table>
-          
+
           </main>
-          <footer> 
-            <button  onClick={close} >  완료 </button> 
+          <footer>
+            <button  onClick={close} >  완료 </button>
           </footer>
         </section>
       ) : null}

@@ -1,14 +1,26 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 function BasketL() {
+
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //return;
+  }
+  // ======= 사용 end
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  
+
   useEffect((e) => {
     //e.preventDefault();
-    
+
     const params = {
       page: 1,
       size: 100
@@ -34,7 +46,7 @@ function BasketL() {
   }
 
   function deleteItem(basketId) {
-    let delItems = items.filter(item => item.basketId !== basketId); 
+    let delItems = items.filter(item => item.basketId !== basketId);
     setItems(delItems);
   }
 

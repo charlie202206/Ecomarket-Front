@@ -1,14 +1,24 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useNavigate , useParams } from 'react-router-dom';
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 let good = 0;
 let normal = 0;
 let bad = 0;
 
 const Review = () => {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+   // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+   // return;
+  }
+  // ======= 사용 end
   let memberId = '1';
 
   const [g_reviewId, setReviewId] = useState();

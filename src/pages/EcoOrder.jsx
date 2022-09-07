@@ -4,7 +4,22 @@ import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import { useLocation } from "react-router";
 import { useNavigate, useParams } from 'react-router-dom';
+
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
+
 function EcoOrder() {
+
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    // return;
+  }
+  // ======= 사용 end
   const location = useLocation();
   const orderItems = location.state.items;
   console.log(orderItems);
@@ -17,7 +32,19 @@ function EcoOrder() {
   const [usePoint, setUsePoint] = useState(0);
   const [ecoPoint, setEcoPoint] = useState(10000);
   const [modalOpen, setModalOpen] = useState(false);
- 
+
+  // 기본배송지
+  const [rootAddress, setRootAddress] = useState([]);
+  const baseURL = 'http://k8s-ecomarke-ecomarke-58be675e99-1138815434.ap-northeast-2.elb.amazonaws.com';
+  useEffect(() => {
+    console.log('useEffect>>>>>>>>>>>>>')
+    // axios.get(baseURL + '/deliveryAddresses/search/findByRootAddrYnAndMemberId?rootAddrYn=Y&memberId='+1+'&projection=with-address').then((res) => {
+    axios.get('/deliveryAddresses/search/findByRootAddrYnAndMemberId?rootAddrYn=Y&memberId='+1+'&projection=with-address').then((res) => {
+      console.log(res);
+      setRootAddress(res.data._embedded.deliveryAddresses[0]);
+    });
+  }, []);  // []에 값이 없으면 최초 한번만 수행
+
   function selectPaymentKind(e) {
     v_paymentKind = e.target.value;
   }
@@ -84,15 +111,15 @@ function EcoOrder() {
       <tbody>
         <tr>
           <td>우편번호</td>
-          <td><input placeholder='zipcode' /></td>
+          <td><input value={rootAddress.zipcode} readOnly/></td>
         </tr>
         <tr>
           <td>주소</td>
-          <td><input placeholder='address' /></td>
+          <td><input value={rootAddress.basAddr} readOnly/></td>
         </tr>
         <tr>
           <td>상세주소</td>
-          <td><input placeholder='address detail' /></td>
+          <td><input value={rootAddress.extraAddr} readOnly/></td>
         </tr>
       </tbody>
     </table>

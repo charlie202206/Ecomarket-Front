@@ -14,23 +14,21 @@ function SaveMember() {
   //변수 받아오기(props 대체)
   const location = useLocation();
   const navigate = useNavigate();
-  const props = location.state.value;
+  // const props = location.state.value;
 
   //글로벌변수(useContext) ==사용 start
   const context = useContext(ContextAPI);
   console.log(context);
   console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
   if(context.memberId === 0){
-    alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
     return;
   }
   // ======= 사용 end
 
-
-
-  const [name, setName] = useState(props.name);
-  const [email, setEmail] = useState(props.email);
-  const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
+  const [name, setName] = useState(context.memberName);
+  const [email, setEmail] = useState(context.memberEmail);
+  const [phoneNumber, setPhoneNumber] = useState(context.memberPhoneNumber);
   const [salesType, setSalesType] = useState("customer");
   // const [zipCode, setZipCode] = useState(props.zipCode);
   // const [address, setAddress] = useState(props.address);
@@ -57,6 +55,7 @@ function SaveMember() {
 
    console.log(e);
     axios
+      //.get(import.meta.env.VITE_API_SERVER + '/members/memberId/'+e)
       .get('/members/memberId/'+e)
       .then((res) => {
           console.log("======start============> " );
@@ -98,6 +97,7 @@ function SaveMember() {
       // addressDetail: e.target.addressDetail.value
     };
     axios
+      //.put(import.meta.env.VITE_API_SERVER +'/members/memberId/'+props.id, params)
       .put('/members/memberId/'+props.id, params)
       .then((res) => {
          // console.log(res.data);
@@ -107,7 +107,7 @@ function SaveMember() {
         } else {
           alert("수정되지 않았습니다.");
         }
-        // console.log(import.meta.env.VITE_API_SERVER + '/member/members');
+        //console.log(import.meta.env.VITE_API_SERVER + '/member/members');
       }).catch(err =>{alert("수정중 오류가 발생했습니다.")});
   }
 

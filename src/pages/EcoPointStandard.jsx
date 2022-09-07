@@ -13,8 +13,21 @@ import EditPoinStandard from '../pages/EditPoinStandard';
 // import '../App.css';
 // import "../styles.css";
 import '../scss/ecoPoint.scss';
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
+
 
 function getStandard(){
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    // return;
+  }
+  // ======= 사용 end
   return fetch('/ecoPointStandard')
     .then(response => {
       console.log(response.jyson);
@@ -77,17 +90,18 @@ const EcoPointStandard = () => {
   const [pointStandard, setPointStandard] = useState([]);
   const [selected, setSelected] = useState({});
   const baseURL = "http://localhost:8080/";
-  
+
   function deletePointStandard(id){
     console.log(id + ": ???");
-    fetch(baseURL + 'ecoPointStandard/' + id, {
+    // fetch(baseURL + 'ecoPointStandard/' + id, {
+    fetch('/ecoPointStandard/' + id, {
       method: "delete",
     })
       .then((res) => res.text())
       .then((res) => {
         if (res === "ok") {
           console.log(res + " RES");
-          // setPointStandard(pointStandard.filter((item) => item.standardId !== id)); 
+          // setPointStandard(pointStandard.filter((item) => item.standardId !== id));
         }
       })
       .catch(error => console.log("fetch 에러!"));
@@ -105,19 +119,20 @@ const EcoPointStandard = () => {
       standardDesc : item.standardDesc,
       ecoPoint : item.ecoPoint,
     };
-    
+
     console.log(selectedData.standardDesc + " selectedData?");
     setSelected(selectedData);
     console.log(selected.standardDesc + " selected?");
-    
+
   }
-  
+
   // console.log(selected.standardDesc + "  ?!?!?!?");
-  
-  
-  
+
+
+
   useEffect(() => {
-    fetch(baseURL + 'ecoPointStandard')
+    // fetch(baseURL + 'ecoPointStandard')
+    fetch('/ecoPointStandard')
     .then(response => response.json())
     .then(response => {
       setPointStandard(response);
@@ -131,19 +146,20 @@ const EcoPointStandard = () => {
   //     setPointStandard(res);
   //   });
   // }, []);
-  
+
 
   const [state, setState] = useState("");
   const [member, setMember] = useState({userId:null,userName:null})
- 
-  
+
+
   const [data, setData] = useState([]);
   const fetchData = () => {
-    fetch('http://localhost:8080/ecoPointStandard')
+    // fetch('http://localhost:8080/ecoPointStandard')
+    fetch('/ecoPointStandard')
         .then(response => response.json())
         .then(responseData => { setData(responseData.items); });
   }
- 
+
   // 모달
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -168,7 +184,7 @@ const EcoPointStandard = () => {
     // handleSave(item);
     setModalOpen(false);
   }
-  
+
 //
   return (
     <div>
@@ -177,7 +193,7 @@ const EcoPointStandard = () => {
         email: {member.userId} <br/>
         name: {member.userName}
       </p> */}
-      
+
       <Card>
         <CardBody>
           <CardTitle tag="h4">EcoPointStandard</CardTitle>
@@ -198,7 +214,7 @@ const EcoPointStandard = () => {
             <tbody>
                {pointStandard.map((tdata, index) => (
                 <tr key={index} className="border-top">
-  
+
                   <td>
                     <div className="d-flex align-items-center p-2">
                       <div className="ms-3">
@@ -225,11 +241,11 @@ const EcoPointStandard = () => {
                     <React.Fragment>
                       <Button className="btn" outline color="warning"  onClick={() => editPointStandard(tdata)}>수정</Button>
                       {/* //header 부분에 텍스트를 입력한다. */}
-                      <EditPoinStandard open={modalOpen} close={closeModal} selectedData={selected}  handelEditSubmit={handleEditSubmit}  
+                      <EditPoinStandard open={modalOpen} close={closeModal} selectedData={selected}  handelEditSubmit={handleEditSubmit}
                         header="EcoPoint 기준 수정">
                       </EditPoinStandard>
                   </React.Fragment>
-                  
+
                   </td>
                   <td>
                     <Button className="btn" outline color="danger"  onClick={() => deletePointStandard(tdata.standardId)}> 삭제 </Button>
@@ -248,11 +264,11 @@ const EcoPointStandard = () => {
           {/* <button class="btn btn-primary" type="button" onClick={openModal2}>추가</button> */}
           <Button className="btn" outline color="info" onClick={openModal2}>추가</Button>
         </div>
-        
-        <AddPoinStandard open={modalOpen2} close={closeModal2}  
+
+        <AddPoinStandard open={modalOpen2} close={closeModal2}
           header="EcoPoint 기준 추가" />
       </React.Fragment>
-      </div> 
+      </div>
 
     </div>
   );

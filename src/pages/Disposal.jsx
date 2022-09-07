@@ -6,7 +6,7 @@ import {
   FormGroup,
   Label,
   Input,
-  Badge, 
+  Badge,
 } from "reactstrap";
 
 import Blog from "../components/Blog";
@@ -20,6 +20,9 @@ import React, {useState, useEffect} from "react";
 
 // Modal
 import DisposalProduct from '../pages/DisposalProduct';
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 const BlogData = [
   {
@@ -91,8 +94,16 @@ const baseURL = "http://localhost:8081/";
 // ];
 
 
-const Disposal = () => { 
-
+const Disposal = () => {
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //return;
+  }
+  // ======= 사용 end
   const [message, setMessage] = useState("");
   useEffect(() => {
     fetch('/disposal')
@@ -124,11 +135,11 @@ const Disposal = () => {
     //   standardDesc : item.standardDesc,
     //   ecoPoint : item.ecoPoint,
     // };
-    
+
     // console.log(selectedData.standardDesc + " selectedData?");
     // setSelected(selectedData);
     // console.log(selected.standardDesc + " selected?");
-    
+
   }
 
   // 모달
@@ -141,7 +152,7 @@ const Disposal = () => {
     setModalOpen(false);
   };
   ////////////
-  
+
     // 데이터를 넣을 빈배열
     const [checkedList, setCheckedList] = useState([]);
     // 1️⃣ onChange함수를 사용하여 이벤트 감지, 필요한 값 받아오기
@@ -166,12 +177,12 @@ const Disposal = () => {
           email: {member.userId} <br/>
           name: {member.userName}
         </p> */}
-    
+
       {/* --------------------------------------------------------------------------------*/}
       <Alert color="success">
       {message}
               {/* <b>{message} 님,</b> 어떤 상품을 <b>배출</b>하시겠습니까?   */}
-              <b></b> 어떤 상품을 <b>배출</b>하시겠습니까?  
+              <b></b> 어떤 상품을 <b>배출</b>하시겠습니까?
               {/* <br/>   { <a href="/" className="alert-link"> EcoPoint 기준 조회  </a> } */}
       </Alert>
       <Row>
@@ -197,7 +208,7 @@ const Disposal = () => {
             />
         </Col>
         ))}
-        <hr/> 
+        <hr/>
         <div>
               {/* // 여기서부턴 리스팅 container!
               // checkedList가 빈배열일 경우, 즉 아무 데이터도 없을땐 길이가0이므로 조건부 렌더링을 사용하여 "카테고리를 지정해주세요" 문구가 출력되게 한다. */}
@@ -224,15 +235,15 @@ const Disposal = () => {
               })}
             </div>
       </Row>
-      <hr/>  
+      <hr/>
 
     <React.Fragment>
          <div class="d-grid gap-2 d-md-flex justify-content-md-end" >
           <Button className="btn" outline color="warning" onClick={openModal}>배출하기</Button>
-        </div>      
+        </div>
         {/* <Button className="btn" outline color="warning"   onClick={openModal}>배출하기</Button> */}
         {/* //header 부분에 텍스트를 입력한다. */}
-        <DisposalProduct open={modalOpen} close={closeModal} selectedData={checkedList}    
+        <DisposalProduct open={modalOpen} close={closeModal} selectedData={checkedList}
           header="재활용품 배출">
         </DisposalProduct>
     </React.Fragment>

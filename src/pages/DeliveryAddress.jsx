@@ -4,15 +4,27 @@ import { Button, Col, Card, CardTitle, CardText } from "reactstrap";
 
 import axios from 'axios';
 import React from 'react';
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 import '../App.css'
 import '../scss/style.scss';
 
 const DeliveryAddress = () => {
+
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //return;
+  }
+    // ======= 사용 end
   const [data, setData] = useState([]);
   const [delCnt, setDelCnt] = useState(1);
   const navigate = useNavigate();
-
   const baseURL = '/deliveryAddresses'
   // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveryAddresses'
   //const baseURL = "http://localhost:8080/deliveryAddresses";
@@ -176,7 +188,7 @@ const DeliveryAddress = () => {
               + 새 배송지 등록
           </Button>
         </div>
-    
+
       </div>
     </>
   );

@@ -13,9 +13,23 @@ import {
   Col,
   CardSubtitle,
 } from "reactstrap";
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
+
+const List = () => {
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+  // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+  // return;
+  }
+  // ======= 사용 end
 
 
-  const List = () => {
+
   const [data, setData] = useState([]);
   const { current: a } = useRef(['a']);
   console.log(a);
@@ -42,8 +56,9 @@ import {
 
 
   useEffect(() => {
-    axios.get('/ecoProducts').then((res) => {
-    //axios.get(import.meta.env.VITE_API_SERVER + '/ecoProducts/search/findByMemberId?memberId='+1+'&projection=with-writer').then((res) => {
+    // axios.get('/ecoProducts').then((res) => {
+    // axios.get(import.meta.env.VITE_API_SERVER + '/ecoProducts/search/findByMemberId?memberId='+1+'&projection=with-writer').then((res) => {
+    axios.get('/ecoProducts/search/findByMemberId?memberId='+1+'&projection=with-writer').then((res) => {
     console.log(res);
     setData(res.data._embedded.ecoProducts);
     });
@@ -74,11 +89,11 @@ import {
       },
       {
         accessor: "category.supercategory",
-        Header: "상위카테고리"
+        Header: "상위구분"
       },
       {
         accessor: "category.subcategory",
-        Header: "하위카테고리"
+        Header: "하위구분"
       },
       {
         accessor: "productDescription",
@@ -86,15 +101,15 @@ import {
       },
       {
         accessor: "productImageId",
-        Header: "사진"
+        Header: "이미지"
       },
       {
         accessor: "_links.self.href",
         Header: "변경 및 삭제",
         Cell: ({ value }) => (
           <div className="button-group">
-             <Link to={'/EcoproductUpdate/' + getId(value)}><Button className="btn" color="warning">update</Button></Link>
-             <Button className="btn" color="danger" onClick={() => handleRemove(getId(value))}>delete</Button>
+             <Link to={'/EcoproductUpdate/' + getId(value)}><Button className="btn" color="warning">변경</Button></Link>
+             <Button className="btn" color="danger" onClick={() => handleRemove(getId(value))}>삭제</Button>
           </div>
 
         )

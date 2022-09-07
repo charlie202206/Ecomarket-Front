@@ -2,9 +2,19 @@ import { useState, useEffect, useRef } from 'react'
 import {BrowserRouter, Routes, Route, useParams, Link} from 'react-router-dom';
 // import Modal from 'react-modal';
 import axios from 'axios';
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 function MyPage() {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+   // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+   // return;
+  }
+  // ======= 사용 end
   const { id } = useParams();
 
   const [myInfo, setMyInfo] = useState({

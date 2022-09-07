@@ -7,11 +7,22 @@ import { ReactComponent as Truck } from '../img/truck-side.svg'
 import { ReactComponent as Boxalt } from '../img/box-alt.svg'
 import { ReactComponent as Boxes } from '../img/boxes.svg'
 import { ReactComponent as Dsr } from '../img/double-small-right.svg'
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 
 import '../App.css'
 
 const DeliveryInfo = () => {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+    //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    //return;
+  }
+    // ======= 사용 end
   const [data, setData] = useState([]);
   const baseURL = '/deliveries';
   // const baseURL = import.meta.env.VITE_API_SERVER + '/deliveries';
@@ -57,7 +68,7 @@ const DeliveryInfo = () => {
               <CardTitle tag="h4">배송정보 {i+1}</CardTitle>
               <CardText className="border-top">
                 <br/>
-                <b>주문상품 : </b>배추 외 1건<br/>
+                <b>주문상품 : </b>{item.ecoProductName} 외 1건<br/>
                 <b>배송주소 : </b>({item.deliveryAddress.zipcode}) {item.deliveryAddress.basAddr} {item.deliveryAddress.dtlAddr} {item.deliveryAddress.extraAddr}<br/>
                 <b>배송완료일 : </b>{item.deliveryEndDt}<br/>
                 <b>택배사 : </b>A택배<br/>

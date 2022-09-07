@@ -40,23 +40,28 @@ const navigation = [
     icon: "FcInTransit",
   },
   {
-    title: "EcoPointStandard",
+    title: "EcoPoint기준",
     href: "/ecoPointStandard",
     // icon: "bi bi-patch-check",
   },
   {
-    title: "Disposal",
+    title: "재활용품 배출",
     href: "/disposal",
     // icon: "bi bi-patch-check",
   },
   {
-    title: "Basket",
+    title: "장바구니 조회",
     href: "/basket",
     // icon: "bi bi-patch-check",
   },
   {
-    title: "Ecoorderlist",
+    title: "주문리스트 조회",
     href: "/ecoorderlist",
+    // icon: "bi bi-patch-check",
+  },
+  {
+    title: "회원정보 수정",
+    href: "/SaveMember",
     // icon: "bi bi-patch-check",
   },
 ];

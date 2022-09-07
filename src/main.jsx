@@ -47,13 +47,20 @@ import NewMember from './pages/NewMember';
 import NewMemberList from './pages/NewMemberList';
 import SaveMember from './pages/SaveMember';
 
+{/* Global variable set */}
+import { ContextProvider } from "./ContextAPI";
+import { createContext } from 'react';
+
+const userContext = createContext();
+const userInfo = {memberId : 0, memberName : "a", memberEmail : "b", memberPhoneNumber: "d", memberSalesType : "c"};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <React.StrictMode>
+  // <React.StrictMode>
+  <ContextProvider value={userInfo}>
     <BrowserRouter>
       <Routes>
-        
+
         {/* Delivery */}
         <Route path="/" element={<App />}  >
         <Route path="/deliveryAddress" element={<DeliveryAddress />}/>
@@ -72,10 +79,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         {/* EcoPoint */}
         <Route path="/ecoPointStandard" element={<EcoPointStandard />} />
-        
+
         {/* Disposal */}
         <Route path="/disposal" element={<Disposal />} />
-        
+
         {/* MyPage / Review */}
         {/* <Route path="/" element={<Temp />} /> */}
         <Route path="/myPage/:id" element={<MyPage />} />
@@ -98,6 +105,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+    </ContextProvider>
+  // </React.StrictMode>
 
 )

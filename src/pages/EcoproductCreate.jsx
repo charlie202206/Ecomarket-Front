@@ -14,14 +14,18 @@ import {
   FormText,
 } from "reactstrap";
 import AWS from 'aws-sdk'
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
+
 
 const S3_BUCKET ='s3-john';
 const REGION ='ap-northeast-2';
 
 
 AWS.config.update({
-  accessKeyId: '',
-  secretAccessKey: ''
+  accessKeyId: "process.env.ACCESS_KEY_ID",
+  secretAccessKey:"process.env.SECRET_ACCESS_KEY",
 })
 
 const myBucket = new AWS.S3({
@@ -30,7 +34,15 @@ const myBucket = new AWS.S3({
 })
 
 const EcoproductCreate = () => {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+   // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+   // return;
+  }
+  // ======= 사용 end
   const fileInput = useRef();
 
 
@@ -69,9 +81,9 @@ const EcoproductCreate = () => {
     };
 
     myBucket.putObject(awsparams)
-        .on('httpUploadProgress', (evt) => {
-            setProgress(Math.round((evt.loaded / evt.total) * 100))
-        })
+        // .on('httpUploadProgress', (evt) => {
+        //     setProgress(Math.round((evt.loaded / evt.total) * 100))
+        // })
         .send((err) => {
             if (err) console.log(err)
         })

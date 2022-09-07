@@ -20,9 +20,19 @@
 
 import axios from 'axios';
 import { useLocation } from "react-router";
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 function Payment() {
-
+  //글로벌변수(useContext) ==사용 start
+  const context = useContext(ContextAPI);
+  console.log(context);
+  console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+  if(context.memberId === 0){
+   // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+   // return;
+  }
+  // ======= 사용 end
   const location = useLocation();
   const orderItems = location.state.orderItems;
   const deliveryId = location.state.deliveryId;
@@ -35,7 +45,7 @@ function Payment() {
   let cntItems = location.state.orderItems.length;
 
   function insertEcoOrder(e) {
-    
+
     const params = {
       memberId: "1",
       ecoOrderDate: '20220801',
@@ -44,7 +54,7 @@ function Payment() {
       totalPrice: totalPrice,
     };
     axios
-      .post('/ecoOrder/ecoorders', params)
+      .post('/ecoOrder/ecoOrders', params)
       .then((res) => {
         console.log(res.data);
         //location.reload();

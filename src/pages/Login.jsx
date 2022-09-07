@@ -19,7 +19,7 @@ function Login() {
 
     console.log(params);
     axios
-      // .post(import.meta.env.MEMBER_API_SERVER + '/member/login/', params)
+      //.post(import.meta.env.VITE_API_SERVER + '/members/login/', params)
       .post('/members/login/', params)
       .then((res) => {
         if (res.status == "200" || res.status == "201") {

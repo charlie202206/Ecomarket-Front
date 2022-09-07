@@ -8,14 +8,16 @@ import {
   Input,
   FormFeedback,
 } from "reactstrap";
-
+//글로벌변수
+import {useContext} from "react";
+import ContextAPI from "../ContextAPI";
 const EditPoinStandard = (props) => {
 //   // console.log(selectedData + " ????");
 //   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header , selectedData, handleCancel, handleEditSubmit} = props;
 
   const [edited, setEdited] = useState(selectedData);
-  
+
 const [inputs, setInputs] = useState({
   standardId: "",
   countweightstandard: "",
@@ -28,7 +30,7 @@ const [inputs, setInputs] = useState({
 
 // const onEditChange = (e) => {
 //   setInputs({
-//     ...inputs, 
+//     ...inputs,
 //     [e.target.name]: e.target.value
 //   })
 // }
@@ -37,10 +39,10 @@ const [inputs, setInputs] = useState({
   const onCancle = () => {
     handleCancel();
   }
-  
+
   const onEditChange = (e) => {
     setInputs({
-      ...inputs, 
+      ...inputs,
       [e.target.name]: e.target.value
     })
   }
@@ -63,6 +65,16 @@ const [inputs, setInputs] = useState({
 
 
   function editePointStandard(data){
+
+    //글로벌변수(useContext) ==사용 start
+    const context = useContext(ContextAPI);
+    console.log(context);
+    console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
+    if(context.memberId === 0){
+    // alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
+    // return;
+    }
+    // ======= 사용 end
     console.log(selectedData.standardId + ": standardId???");
     console.log(data.classification + ": classification???");
     console.log(data.countweightstandard + ": countweightstandard???");
@@ -88,7 +100,7 @@ const [inputs, setInputs] = useState({
       .then((res) => {
         console.log(res+ " RES");
         if (res === "ok") {
-          // setPointStandard(pointStandard.filter((item) => item.standardId !== id)); 
+          // setPointStandard(pointStandard.filter((item) => item.standardId !== id));
         }
       })
       .catch(error => console.log(error + " \n fetch 에러!"));
@@ -115,7 +127,7 @@ const [inputs, setInputs] = useState({
               <div>classification : <input type='text' name='name' value={edited.classification} onChange={onEditChange}></input></div>
             </div>
           </form> */}
-            
+
           <FormGroup  onSubmit={onSubmitEdit}>
             <div>ID :  {selectedData.standardId}</div><hr/>
             {/* <Label for="exampleEmail"> ID  </Label>
@@ -138,15 +150,15 @@ const [inputs, setInputs] = useState({
             </FormFeedback>
             <Label for="exampleEmail"> 설명  </Label>
             <Input defaultValue={selectedData.standardDesc} type="textarea" onChange={onEditChange} name="standardDesc">  </Input>
-            
+
             <FormFeedback>
               You will not be able to see this
             </FormFeedback>
 
           </FormGroup>
           </main>
-          <footer> 
-            <button  onClick={() => editePointStandard(inputs)} >  저장 </button> 
+          <footer>
+            <button  onClick={() => editePointStandard(inputs)} >  저장 </button>
           </footer>
         </section>
       ) : null}

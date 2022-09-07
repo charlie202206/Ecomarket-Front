@@ -14,8 +14,6 @@ function NewMember(props) {
     console.debug("================:"+event.target.value);
     setSalesType(event.target.value);
   }
-
-  // const [selectedST, setSelectedST] = useState("customer");
   const [mode, setMode] = useState('INIT');
   let contentControl = null;
 
