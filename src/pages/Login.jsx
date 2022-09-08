@@ -37,7 +37,7 @@ function Login() {
 
           userInfo.id = res.data.id;
           userInfo.name =
-          navigate('/ecoproductlist', {state:{value: userInfo}})
+          navigate('/ecoproductsearch', {state:{value: userInfo}})
 
         } else if (res.status == "203") {
           alert("아이디와 패스워드를 확인하세요");
