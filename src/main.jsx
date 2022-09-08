@@ -56,7 +56,7 @@ const userInfo = {memberId : 0, memberName : "a", memberEmail : "b", memberPhone
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  // <React.StrictMode>
+  <React.StrictMode>
   <ContextProvider value={userInfo}>
     <BrowserRouter>
       <Routes>
@@ -106,6 +106,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </Routes>
     </BrowserRouter>
     </ContextProvider>
-  // </React.StrictMode>
+   </React.StrictMode>
 
 )
