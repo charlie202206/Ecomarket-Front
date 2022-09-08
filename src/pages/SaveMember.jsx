@@ -22,7 +22,8 @@ function SaveMember() {
   console.log("props called inside of a function", context.memberEmail, context.memberName, context.memberId, context.memberSalesType, context.memberPhoneNumber);
   if(context.memberId === 0){
     //alert("비정상경로로 접근하였습니다.{" + context.memberId + "}");
-    return;
+    context.memberId = 1;
+    //return;
   }
   // ======= 사용 end
 
@@ -34,9 +35,9 @@ function SaveMember() {
   // const [address, setAddress] = useState(props.address);
   // const [addressDetail, setAddressDetail] = useState(props.addressDetail);
   const [hstate,setHstate]=useState("INIT");
-  if(props.id != "" && hstate == "INIT"){
+  if(context.memberId != "" && hstate == "INIT"){
     setHstate("AFTER");
-    search(props.id);
+    search(context.memberId);
   }
 
   // const [selectedST, setSelectedST] = useState(salesType);
